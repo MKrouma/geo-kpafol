@@ -94,7 +94,7 @@ class User(UserMixin, db.Model):
                 tzinfo=timezone.utc).isoformat(),
             'is_actived': self.is_actived,
             '_links': {
-                'avatar': self.gravatar(size=128)
+                'avatar': self.avatar_hash
             }
         }
 

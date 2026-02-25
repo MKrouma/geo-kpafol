@@ -25,7 +25,7 @@ flask --app=main.py db stamp head
 DEV Migraton
 ```
 flask --app=main.py db init --directory mig_dev
-flask --app=main.py db migrate -m "init" --directory mig_dev
+flask --app=main.py db migrate -m "avatar from has" --directory mig_dev
 flask --app=main.py db upgrade --directory mig_dev
 flask --app=main.py db stamp head --directory mig_dev
 
