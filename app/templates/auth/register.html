@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geokpafol - Inscription</title>
+    <title>Geo-Kpafol - Inscription</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
@@ -13,48 +13,79 @@
         </div>
         <div class="c-inscription">
             <div class="c-connection">
-                <h1>Créer un compte</h1>
-                <p>Vous avez déjà un compte ? Se connecter ici</p>
-            </div>
-            
+                <h1>Créez votre compte</h1>
+                <p>Vous avez déjà un compte ? 
+                    <a href="{{ url_for('auth.login') }}">Se connecter</a></p>
+            </div>  
             <div class="c-formulaire">
-                <form class="form">
+                <form method="post" class="form" novalidate>
+                    {{ form.csrf_token }}
+
+                    {% if form.firstname %}
                     <div class="form-group">
-                        <label for="prenom">Prénom</label>
-                        <input type="text" id="prenom" name="prenom" placeholder="saisir le prénom" required>
+                        <label for="firstname">Prénom</label>
+                        {{ form.firstname(class="form-control", id="firstname", placeholder="Tracy") }}
+                        {% if form.firstname.errors %}
+                            <div class="field-errors">{{ form.firstname.errors[0] }}</div>
+                        {% endif %}
                     </div>
-                    
+                    {% endif %}
+
+                    {% if form.lastname %}
                     <div class="form-group">
-                        <label for="nom">Nom de famille</label>
-                        <input type="text" id="nom" name="nom" placeholder="saisir le nom de famille" required>
+                        <label for="lastname">Nom de famille</label>
+                        {{ form.lastname(class="form-control", id="lastname", placeholder="Seka") }}
+                        {% if form.lastname.errors %}
+                            <div class="field-errors">{{ form.lastname.errors[0] }}</div>
+                        {% endif %}
                     </div>
-                    
+                    {% endif %}
+
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="saisir l'e-mail" required>
+                        {{ form.email(class="form-control", id="email", placeholder="tracyseka@gmail.com") }}
+                        {% if form.email.errors %}
+                            <div class="field-errors">{{ form.email.errors[0] }}</div>
+                        {% endif %}
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="password">Mot de passe</label>
                         <div class="password-input">
-                            <input type="password" id="password" name="password" placeholder="saisir le mot de passe" required>
+                            {{ form.password(class="form-control", id="password", placeholder="••••••••••••") }}
                             <span class="toggle-password">👁</span>
                         </div>
+                        {% if form.password.errors %}
+                            <div class="field-errors">{{ form.password.errors[0] }}</div>
+                        {% endif %}
                     </div>
-                    
+
+                    {% if form.confirm_password %}
                     <div class="form-group">
-                        <label for="confirmPassword">Confirmez le mot de passe</label>
-                        <div class="password-input">
-                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="saisir le mot de passe" required>
-                            <span class="toggle-password">👁</span>
-                        </div>
+                        <label for="confirm_password">Confirmer le mot de passe</label>
+                        {{ form.confirm_password(class="form-control", id="confirm_password", placeholder="••••••••••••") }}
+                        {% if form.confirm_password.errors %}
+                            <div class="field-errors">{{ form.confirm_password.errors[0] }}</div>
+                        {% endif %}
                     </div>
-                    
-                    <button type="submit" class="submit-btn">Créer un compte</button>
+                    {% endif %}
+
+                    {{ form.submit(class="submit-btn") }}
                 </form>
             </div>
         </div>
-        
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      const toggle = document.querySelector('.toggle-password');
+      if (!toggle) return;
+      const pwd = document.getElementById('password');
+      toggle.addEventListener('click', function(){
+        if (pwd.type === 'password') { pwd.type = 'text'; }
+        else { pwd.type = 'password'; }
+      });
+    });
+    </script>
 </body>
 </html>

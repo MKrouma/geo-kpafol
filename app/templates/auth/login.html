@@ -16,34 +16,61 @@
                 <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
             </div>
             <div class="c-connection">
-                <h1>Content de te revoir</h1>
+                <h1>Content de vous revoir</h1>
                 <p>Vous n'avez pas de compte ? 
                     <a href="{{ url_for('auth.register') }}">S'inscrire ici</a></p>
             </div>  
             <div class="c-formulaire">
-                <form class="form">
+                <form method="post" class="form" novalidate>
+                    {{ form.csrf_token }}
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="tracyseka@gmail.com" required>
+                        {{ form.email(class="form-control", id="email", placeholder="tracyseka@gmail.com") }}
+                        {% if form.email.errors %}
+                            <div class="field-errors">{{ form.email.errors[0] }}</div>
+                        {% endif %}
                     </div>
                     
                     <div class="form-group">
                         <label for="password">Mot de passe</label>
                         <div class="password-input">
-                            <input type="password" id="password" name="password" placeholder="••••••••••••" required>
+                            {{ form.password(class="form-control", id="password", placeholder="••••••••••••") }}
                             <span class="toggle-password">👁</span>
                         </div>
+                        {% if form.password.errors %}
+                            <div class="field-errors">{{ form.password.errors[0] }}</div>
+                        {% endif %}
                     </div>
                     
-                    <button type="submit" class="submit-btn">Se connecter</button>
+                    {% if form.remember %}
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            {{ form.remember() }} Se souvenir de moi
+                        </label>
+                    </div>
+                    {% endif %}
+                    
+                    {{ form.submit(class="submit-btn") }}
                     
                     <div class="forgot-password">
-                        <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+                        <a href="{{ url_for('auth.login') }}" class="forgot-link">Mot de passe oublié ?</a>
                     </div>
                 </form>
             </div>
         </div>
-        
     </div>
+
+    <script>
+    // simple password toggle keeping design
+    document.addEventListener('DOMContentLoaded', function(){
+      const toggle = document.querySelector('.toggle-password');
+      if (!toggle) return;
+      const pwd = document.getElementById('password');
+      toggle.addEventListener('click', function(){
+        if (pwd.type === 'password') { pwd.type = 'text'; }
+        else { pwd.type = 'password'; }
+      });
+    });
+    </script>
 </body>
 </html>
