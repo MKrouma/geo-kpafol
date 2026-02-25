@@ -17,7 +17,7 @@ Tables
 PROD Migration
 ```
 flask --app=main.py db init
-flask --app=main.py db migrate -m "village area instead of pop"
+flask --app=main.py db migrate -m "on prod"
 flask --app=main.py db upgrade
 flask --app=main.py db stamp head
 ```
