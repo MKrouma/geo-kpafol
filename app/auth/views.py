@@ -45,6 +45,8 @@ def login():
         form.remember_me.data = False
         flash('Email ou mot de passe incorrects.')
 
+    if current_user.is_authenticated:
+        return redirect(url_for('main.dashboard'))
     return render_template('auth/login.html', form=form)
 
 @auth.route('/register', methods=['GET', 'POST'])
