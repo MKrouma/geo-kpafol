@@ -10,4 +10,4 @@ fi
 echo "$commit_message"
 git add .
 git commit -m "$commit_message"
-git push origin develop
+git push origin master
