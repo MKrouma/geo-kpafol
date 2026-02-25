@@ -14,8 +14,8 @@ def base():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():    
-    pass
+    return render_template('auth/login.html')
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
-    pass
+    return render_template('auth/register.html')

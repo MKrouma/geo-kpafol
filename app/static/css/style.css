@@ -8,6 +8,10 @@
     font-optical-sizing: auto;
 }
 
+a {
+    color: #335CFF;
+}
+
 .container{
     /* border: solid red 1px ; */
     width: 100%;
@@ -42,10 +46,24 @@
     justify-content: center;
     align-items: start;
 }
+
+.c-logo {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 30px;
+}
+
+.c-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 .c-connection h1{
     margin-bottom: 15px;
     font-size: 40px;
 }
+
 .c-connection p{
     margin-bottom: 40px;
     font-size: 20px;
