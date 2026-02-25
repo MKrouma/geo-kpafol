@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="c-image">
+            <img src="/assets/images/auth-image.png" alt="">
+        </div>
+        <div class="c-inscription">
+            <div class="c-connection">
+                <h1>Créer un compte</h1>
+                <p>Vous avez déjà un compte ? Se connecter ici</p>
+            </div>
+            
+            <div class="c-formulaire">
+                <form class="form">
+                    <div class="form-group">
+                        <label for="prenom">Prénom</label>
+                        <input type="text" id="prenom" name="prenom" placeholder="saisir le prénom" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nom">Nom de famille</label>
+                        <input type="text" id="nom" name="nom" placeholder="saisir le nom de famille" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="saisir l'e-mail" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Mot de passe</label>
+                        <div class="password-input">
+                            <input type="password" id="password" name="password" placeholder="saisir le mot de passe" required>
+                            <span class="toggle-password">👁</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmez le mot de passe</label>
+                        <div class="password-input">
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="saisir le mot de passe" required>
+                            <span class="toggle-password">👁</span>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Créer un compte</button>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
