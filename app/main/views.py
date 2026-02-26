@@ -29,18 +29,13 @@ def dashboard():
 
 
 
-
-
-
-
 # BACKEND
 @main.route('/api/aoi', methods=['GET', 'POST'])
 def get_aoi():
     data_dir = os.path.join(current_app.root_path, '../data')
-    aoi = gpd.read_file(os.path.join(data_dir, "zone_union.zip"))
+    aoi = gpd.read_file(os.path.join(data_dir, "aoi_clean.gpkg"))
     geojson_str = aoi.to_json()  # GeoPandas -> GeoJSON string
     return Response(geojson_str, mimetype='application/geo+json')
-
 
 
 

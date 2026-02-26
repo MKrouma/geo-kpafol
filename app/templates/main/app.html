@@ -18,7 +18,7 @@
     <div class="container">
         <div class="navbar">
             <div class="navbar-left"> 
-                <p>Eco - Watch</p>
+                <p>Geo-Kpafol</p>
             </div>
             <div class="navbar-center">
                 <li>Tableau de bord</li>
@@ -29,11 +29,59 @@
                 <div class="navbar-right-item">
                     <img src="{{ url_for('static', filename='images/image-navbar-right.png') }}" alt="">
                 </div>
+                <div class="nb-r-avatar">
+                    <img src="{{ current_user.avatar_url }}" alt="">
+                </div>
+                <div>
+                    <p>{{ current_user.email }}</p>
+                </div>
             </div>
         </div>
-        <div id="map"></div>
+        <div class="dashboard">
+            <div id="map"></div>
+            <div id="dash">
+                <div class="d-stats">
+                    <h2>Region : Iffou</h2>
+                    <div class="ds-stats1">
+                        <div class="ds-s1-sites">
+                            <p class="ds-s1-title">Sites Actifs</p>
+                            <p class="ds-s1-value">142</p>
+                        </div>
+                        <div class="ds-s1-sites">
+                            <p class="ds-s1-title">Ratio Risque</p>
+                            <p class="ds-s1-value"><span>74</span>/100</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-stats">
+                    <h2>Region : N'Zi</h2>
+                    <div class="ds-stats1">
+                        <div class="ds-s1-sites">
+                            <p class="ds-s1-title">Sites Actifs</p>
+                            <p class="ds-s1-value">142</p>
+                        </div>
+                        <div class="ds-s1-sites">
+                            <p class="ds-s1-title">Ratio Risque</p>
+                            <p class="ds-s1-value"><span>74</span>/100</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-stats">
+                    <h2>Region : Sud Comoé</h2>
+                    <div class="ds-stats1">
+                        <div class="ds-s1-sites">
+                            <p class="ds-s1-title">Sites Actifs</p>
+                            <p class="ds-s1-value">142</p>
+                        </div>
+                        <div class="ds-s1-sites">
+                            <p class="ds-s1-title">Ratio Risque</p>
+                            <p class="ds-s1-value"><span>74</span>/100</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
-    
-
 </body>
 </html>

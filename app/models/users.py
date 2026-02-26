@@ -18,15 +18,15 @@ class User(UserMixin, db.Model):
     is_actived = db.Column(db.Boolean(), default=True)
     created_at = db.Column(db.DateTime(), default=datetime.now)
     updated_at = db.Column(db.DateTime(), default=datetime.now)
-    avatar_hash = db.Column(db.String(32))
+    avatar_url = db.Column(db.String(100))
 
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
 
         # init avatar
-        if self.avatar_hash is None:
-            self.avatar_hash = self.gravatar_hash()
+        if self.avatar_url is None:
+            self.avatar_url = self.gravatar()
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -79,7 +79,7 @@ class User(UserMixin, db.Model):
         else:
             url = 'https://www.gravatar.com/avatar'
 
-        hash = self.avatar_hash or self.gravatar_hash()
+        hash = self.gravatar_hash()
         return '{url}/{hash}?s={size}&d={default}&r={rating}'.format(
             url=url, hash=hash, size=size, default=default, rating=rating)
     
@@ -94,7 +94,7 @@ class User(UserMixin, db.Model):
                 tzinfo=timezone.utc).isoformat(),
             'is_actived': self.is_actived,
             '_links': {
-                'avatar': self.avatar_hash
+                'avatar': self.avatar_url
             }
         }
 
