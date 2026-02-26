@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geo-Kpafol - Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+     <script src="https://kit.fontawesome.com/ef07e6b6ce.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-left"> 
+                <p>Geo-Kpafol</p>
+            </div>
+            <div class="navbar-center">
+                <li>
+                    <a href="{{ url_for('main.dashboard') }}">
+                        Tableau de bord
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('main.alerts') }}">
+                        Alertes
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('main.documentation') }}">
+                        Documentation
+                    </a>
+                </li>
+            </div>
+            <div class="navbar-right">
+                <div class="navbar-right-item">
+                    <img src="{{ url_for('static', filename='images/image-navbar-right.png') }}" alt="">
+                </div>
+                <div class="nb-r-avatar">
+                    <img src="{{ current_user.avatar_url }}" alt="">
+                </div>
+                <div>
+                    <p>{{ current_user.email }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard">
+            {% block dashboard %}
+            {% endblock  %}
+        </div>
+        
+    </div>
+</body>
+</html>

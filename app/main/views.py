@@ -27,6 +27,16 @@ def index():
 def dashboard():
     return render_template('main/app.html')
 
+@main.route('/alerts', methods=['GET', 'POST'])
+@login_required
+def alerts():
+    return render_template('main/alerts.html')
+
+@main.route('/documentation', methods=['GET', 'POST'])
+@login_required
+def documentation():
+    return render_template('main/doc.html')
+
 
 
 # BACKEND

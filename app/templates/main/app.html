@@ -1,97 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geo-Kpafol - Dashboard</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-     crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
-     <script src="https://kit.fontawesome.com/ef07e6b6ce.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
-    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
-</head>
-<body>
-    <div class="container">
-        <div class="navbar">
-            <div class="navbar-left"> 
-                <p>Geo-Kpafol</p>
+{% extends 'main/base.html' %}
+
+{% block dashboard %}
+<div id="map"></div>
+<div id="dash">
+    <div class="d-stats">
+        <h2>Region : Iffou</h2>
+        <div class="ds-stats1">
+            <div class="ds-s1-sites">
+                <p class="ds-s1-title">Sites Actifs</p>
+                <p class="ds-s1-value">142</p>
             </div>
-            <div class="navbar-center">
-                <li>Tableau de bord</li>
-                <li>Alertes</li>
-                <li>Paramètres</li>
-            </div>
-            <div class="navbar-right">
-                <div class="navbar-right-item">
-                    <img src="{{ url_for('static', filename='images/image-navbar-right.png') }}" alt="">
-                </div>
-                <div class="nb-r-avatar">
-                    <img src="{{ current_user.avatar_url }}" alt="">
-                </div>
-                <div>
-                    <p>{{ current_user.email }}</p>
-                </div>
+            <div class="ds-s1-sites">
+                <p class="ds-s1-title">Ratio Risque</p>
+                <p class="ds-s1-value"><span>74</span>/100</p>
             </div>
         </div>
-        <div class="dashboard">
-            <div id="map"></div>
-            <div id="dash">
-                <div class="d-stats">
-                    <h2>Region : Iffou</h2>
-                    <div class="ds-stats1">
-                        <div class="ds-s1-sites">
-                            <p class="ds-s1-title">Sites Actifs</p>
-                            <p class="ds-s1-value">142</p>
-                        </div>
-                        <div class="ds-s1-sites">
-                            <p class="ds-s1-title">Ratio Risque</p>
-                            <p class="ds-s1-value"><span>74</span>/100</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-stats">
-                    <h2>Region : N'Zi</h2>
-                    <div class="ds-stats1">
-                        <div class="ds-s1-sites">
-                            <p class="ds-s1-title">Sites Actifs</p>
-                            <p class="ds-s1-value">142</p>
-                        </div>
-                        <div class="ds-s1-sites">
-                            <p class="ds-s1-title">Ratio Risque</p>
-                            <p class="ds-s1-value"><span>74</span>/100</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-stats">
-                    <h2>Region : Sud Comoé</h2>
-                    <div class="ds-stats1">
-                        <div class="ds-s1-sites">
-                            <p class="ds-s1-title">Sites Actifs</p>
-                            <p class="ds-s1-value">142</p>
-                        </div>
-                        <div class="ds-s1-sites">
-                            <p class="ds-s1-title">Ratio Risque</p>
-                            <p class="ds-s1-value"><span>74</span>/100</p>
-                        </div>
-                    </div>
-                </div>
-                <div id="logout">
-                    <form action="{{ url_for('auth.logout') }}" method="post" style="display:inline;">
-                        
-                        <button type="submit">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            <span>Se deconnecter</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        
     </div>
-</body>
-</html>
+    <div class="d-stats">
+        <h2>Region : N'Zi</h2>
+        <div class="ds-stats1">
+            <div class="ds-s1-sites">
+                <p class="ds-s1-title">Sites Actifs</p>
+                <p class="ds-s1-value">142</p>
+            </div>
+            <div class="ds-s1-sites">
+                <p class="ds-s1-title">Ratio Risque</p>
+                <p class="ds-s1-value"><span>74</span>/100</p>
+            </div>
+        </div>
+    </div>
+    <div class="d-stats">
+        <h2>Region : Sud Comoé</h2>
+        <div class="ds-stats1">
+            <div class="ds-s1-sites">
+                <p class="ds-s1-title">Sites Actifs</p>
+                <p class="ds-s1-value">142</p>
+            </div>
+            <div class="ds-s1-sites">
+                <p class="ds-s1-title">Ratio Risque</p>
+                <p class="ds-s1-value"><span>74</span>/100</p>
+            </div>
+        </div>
+    </div>
+    <div id="logout">
+        <form action="{{ url_for('auth.logout') }}" method="post" style="display:inline;">
+            
+            <button type="submit">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Se deconnecter</span>
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

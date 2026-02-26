@@ -1,0 +1,110 @@
+
+<p style="color:#64748B; margin-bottom:20px;">
+Résumé du flux de travail proposé pour détecter les petites exploitations minières à partir d'images satellites,
+indices de télédétection, suivi de déforestation et intégration du produit LULC (bnetd).
+</p>
+
+<section style="margin-bottom:18px;">
+<h2 style="font-size:16px; margin-bottom:8px;">1. Objectifs</h2>
+<ul style="color:#475569;">
+    <li>Identifier et localiser des changements de surface associés à l'exploitation minière (zones déboisées, sols nus, bassins, pistes).</li>
+    <li>Prioriser les zones à risque en combinant changement spectral, perte de couverture arborée et classes LULC.</li>
+    <li>Fournir sorties géospatiales (GeoJSON / GeoPackage) et indicateurs pour visualisation et validation.</li>
+</ul>
+</section>
+
+<section style="margin-bottom:18px;">
+<h2 style="font-size:16px; margin-bottom:8px;">2. Sources de données</h2>
+<ul style="color:#475569;">
+    <li>Optique multispectral: Sentinel-2 (10–20 m), Landsat 8/9 (30 m). Optionnel: PlanetScope (3–5 m) si disponible.</li>
+    <li>Indices dérivés: NDVI, NBR (Normalized Burn Ratio), dNBR (variation temporelle), NDMI, Bare Soil Index (BSI), tasseled-cap composants.</li>
+    <li>Produit LULC: bnetd land use / land cover — utilisé pour filtrer/pondérer les changements selon la classe (forêt, agriculture, urbain, eau).</li>
+    <li>Produits auxiliaires: masque nuages (QA60 / Fmask), DEM (pour pente), images haute résolution pour validation.</li>
+</ul>
+</section>
+
+<section style="margin-bottom:18px;">
+<h2 style="font-size:16px; margin-bottom:8px;">3. Pré-traitement</h2>
+<ol style="color:#475569;">
+    <li>Atmospheric correction / convertir en réflectance (ex: Sen2Cor, Landsat LEDAPS / LaSRC).</li>
+    <li>Masquage nuages et ombres (data QA / cloud score). Retirer pixels non fiables.</li>
+    <li>Harmonisation spatiale et temporelle: reprojection, rééchantillonnage à résolution cible (ex. 10 m ou 30 m).</li>
+    <li>Construction de composites temporels (mosaïques saisonnières ou médianes) pour réduire bruit et nuages.</li>
+</ol>
+</section>
+
+<section style="margin-bottom:18px;">
+<h2 style="font-size:16px; margin-bottom:8px;">4. Indices et métriques (exemples)</h2>
+<ul style="color:#475569;">
+    <li>NDVI = (NIR - RED) / (NIR + RED) — végétation.</li>
+    <li>NBR = (NIR - SWIR2) / (NIR + SWIR2) — sensible à la combustion et à la perte de végétation; dNBR = NBR_t0 - NBR_t1 pour changement.</li>
+    <li>NDMI = (NIR - SWIR1) / (NIR + SWIR1) — humidité de la végétation.</li>
+    <li>BSI / Bare Soil Index — met en évidence sols nus et pistes.</li>
+    <li>Composants tasseled-cap (Brightness, Greenness, Wetness) — utile pour séparer sols nus / végétation / eau.</li>
+</ul>
+</section>
+
+<section style="margin-bottom:18px;">
+<h2 style="font-size:16px; margin-bottom:8px;">5. Méthodes de détection</h2>
+<p style="color:#475569;">Combiner plusieurs approches pour réduire faux positifs :</p>
+<ul style="color:#475569;">
+    <li><strong>Seuils et changement temporel</strong> — ex. dNBR élevé + augmentation du BSI indiquent dénudement récent.</li>
+    <li><strong>Détection par rupture temporelle</strong> — LandTrendr / CCDC pour identifier changements abrupts dans séries temporelles.</li>
+    <li><strong>Apprentissage supervisé</strong> — classifier pixels/objets (Random Forest, XGBoost) avec caractéristiques spectrales et temporelles; nécessite étiquettes (mines / non-mines).</li>
+    <li><strong>Approche non-supervisée / anomalie</strong> — détection d'anomalies sur features temporels (Isolation Forest, clustering).</li>
+    <li><strong>Règles heuristiques</strong> — combiner LULC bnetd: par ex. signal de déforestation dans une zone forestière augmentera la priorité.</li>
+</ul>
+</section>
+
+<section style="margin-bottom:18px;">
+<h2 style="font-size:16px; margin-bottom:8px;">6. Post-traitement et vectorisation</h2>
+<ul style="color:#475569;">
+    <li>Filtrage morphologique (ouverture/fermeture) pour supprimer petites taches bruitées.</li>
+    <li>Seuil de surface minimale (p. ex. ignorer taches < 100 m² selon résolution).</li>
+    <li>Regroupement et simplification, création de tampons si nécessaire.</li>
+    <li>Conversion en vecteurs (GeoJSON / GeoPackage) avec attributs: date_detect, méthode, risk_score, area_m2, probable_LULC_source.</li>
+</ul>
+</section>
+
+<section style="margin-bottom:18px;">
+<h2 style="font-size:16px; margin-bottom:8px;">7. Validation et évaluation</h2>
+<ul style="color:#475569;">
+    <li>Valider avec imagerie haute-résolution et données terrain si disponibles.</li>
+    <li>Mesures: précision, rappel, F1, matrice de confusion sur échantillons annotés.</li>
+    <li>Suivi temporel des faux positifs (ex. travaux agricoles saisonniers) et ajustement des règles.</li>
+</ul>
+</section>
+
+<section style="margin-bottom:18px;">
+<h2 style="font-size:16px; margin-bottom:8px;">8. Sorties & API</h2>
+<ul style="color:#475569;">
+    <li>Vecteurs GeoJSON / GeoPackage par date de détection.</li>
+    <li>Attributs: id, date_detect, method, risk_score, area_m2, source_imagery, notes.</li>
+    <li>Endpoints possibles: /api/aoi (AOI), /api/detections?start=...&end=..., /api/detection/{id}.</li>
+    <li>Visualisation: carte interactive avec popup, timeline slider et liste d'alertes (UI existante).</li>
+</ul>
+</section>
+
+<section style="margin-bottom:18px;">
+<h2 style="font-size:16px; margin-bottom:8px;">9. Contraintes opérationnelles</h2>
+<ul style="color:#475569;">
+    <li>Couverture nuageuse et saisonnalité influencent la détection — privilégier fenêtres temporelles propres (saisons sèches).</li>
+    <li>Petites surfaces et spectres similaires (sols nus, routes, carrières) augmentent les faux positifs — combiner indices et LULC pour filtrer.</li>
+    <li>Résolution spatiale dicte la taille minimale détectable (Sentinel-2 ~10 m, Landsat ~30 m).</li>
+    <li>Mise à jour: définir cadence (hebdo / mensuelle) selon objectifs et coût de calcul.</li>
+</ul>
+</section>
+
+<section style="margin-bottom:18px;">
+<h2 style="font-size:16px; margin-bottom:8px;">10. Recommandations</h2>
+<ol style="color:#475569;">
+    <li>Commencer par une approche basée sur dNBR + BSI + filtre LULC pour un prototype simple.</li>
+    <li>Construire un jeu d'entraînement local pour un classifieur supervisé afin d'améliorer précision.</li>
+    <li>Automatiser pipeline de pré-traitement (correction atmosphérique, masques nuages) et versionner produits.</li>
+    <li>Mettre en place une procédure de validation périodique et une interface pour retours terrain.</li>
+</ol>
+</section>
+
+<footer style="color:#94A3B8; margin-top:12px; font-size:13px;">
+Note: Les paramètres exacts (seuils, taille minimale, cadence) doivent être calibrés sur vos zones d'intérêt et vos données de validation.
+</footer>

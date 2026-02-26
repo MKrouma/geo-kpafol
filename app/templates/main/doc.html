@@ -1,0 +1,53 @@
+{% extends 'main/base.html' %}
+
+{% block dashboard %}
+<div class="d-doc">
+    <h1 style="margin-bottom:12px;">Détection de petites exploitations minières — Documentation</h1>
+    <p style="color:#64748B; margin-bottom:20px;">
+        Résumé du flux de travail proposé pour détecter les petites exploitations minières à partir d'images satellites, <br>
+        indices de télédétection, suivi de déforestation et intégration du produit LULC (bnetd).
+    </p>
+
+    <section style="margin-bottom:18px;">
+        <h2 style="font-size:16px; margin-bottom:8px;">1. Objectifs</h2>
+        <div style="color:#475569;">
+            <p>Identifier et localiser des changements de surface associés à l'exploitation minière (zones déboisées, sols nus, bassins, pistes).</p>
+            <p>Prioriser les zones à risque en combinant changement spectral, perte de couverture arborée et classes LULC.</p>
+            <p>Fournir sorties géospatiales (GeoJSON / GeoPackage) et indicateurs pour visualisation et validation.</p>
+        </div>
+    </section>
+
+    <section style="margin-bottom:18px;">
+        <h2 style="font-size:16px; margin-bottom:8px;">2. Sources de données</h2>
+        <div style="color:#475569;">
+            <p>Optique multispectral: Sentinel-2 (10–20 m), Landsat 8/9 (30 m). Optionnel: PlanetScope (3–5 m) si disponible.</p>
+            <p>Indices dérivés: NDVI, NBR (Normalized Burn Ratio), dNBR (variation temporelle), NDMI, Bare Soil Index (BSI), tasseled-cap composants.</p>
+            <p>Produit LULC: bnetd land use / land cover — utilisé pour filtrer/pondérer les changements selon la classe (forêt, agriculture, urbain, eau).</p>
+            <p>Produits auxiliaires: masque nuages (QA60 / Fmask), DEM (pour pente), images haute résolution pour validation.</p>
+        </div>
+    </section>
+
+    <section style="margin-bottom:18px;">
+        <h2 style="font-size:16px; margin-bottom:8px;">4. Indices et métriques (exemples)</h2>
+        <div style="color:#475569;">
+            <p>NDVI = (NIR - RED) / (NIR + RED) — végétation.</p>
+            <p>NBR = (NIR - SWIR2) / (NIR + SWIR2) — sensible à la combustion et à la perte de végétation; dNBR = NBR_t0 - NBR_t1 pour changement.</p>
+            <p>NDMI = (NIR - SWIR1) / (NIR + SWIR1) — humidité de la végétation.</p>
+            <p>BSI / Bare Soil Index — met en évidence sols nus et pistes.</p>
+            <p>Composants tasseled-cap (Brightness, Greenness, Wetness) — utile pour séparer sols nus / végétation / eau.</p>
+        </div>
+    </section>
+
+    <section style="margin-bottom:18px;">
+        <h2 style="font-size:16px; margin-bottom:8px;">5. Méthodes de détection</h2>
+        <p style="color:#475569;">Combiner plusieurs approches pour réduire faux positifs :</p>
+        <div style="color:#475569;">
+            <p><strong>Seuils et changement temporel</strong> — ex. dNBR élevé + augmentation du BSI indiquent dénudement récent.</p>
+            <p><strong>Détection par rupture temporelle</strong> — LandTrendr / CCDC pour identifier changements abrupts dans séries temporelles.</p>
+            <p><strong>Apprentissage supervisé</strong> — classifier pixels/objets (Random Forest, XGBoost) avec caractéristiques spectrales et temporelles; nécessite étiquettes (mines / non-mines).</p>
+            <p><strong>Approche non-supervisée / anomalie</strong> — détection d'anomalies sur features temporels (Isolation Forest, clustering).</p>
+            <p><strong>Règles heuristiques</strong> — combiner LULC bnetd: par ex. signal de déforestation dans une zone forestière augmentera la priorité.</p>
+        </div>
+    </section>
+</div>
+{% endblock %}

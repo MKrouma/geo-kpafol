@@ -4,15 +4,16 @@ var map = L.map('map').setView([6.68047763, -4.1245604], 8);
 var OpenStreetMap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+}) 
+// .addTo(map);
 
 var Esri_WorldImagery = L.tileLayer(
   'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
   {
     attribution:
-      'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+      'Tiles &copy; Esri &mdash; Source: Esri & Co.'
   }
-);
+).addTo(map);
 
 
 // AOI layer from backend
@@ -40,12 +41,12 @@ fetch('/api/aoi')
 
     // Simple layer control with base maps and AOI overlay
     const baseMaps = {
+      'EsriImagery': Esri_WorldImagery,
       'OpenStreetMap': OpenStreetMap,
-      'Esri World Imagery': Esri_WorldImagery
     };
 
     const overlayMaps = {
-      'AOI': aoiLayer
+      'Zone d\'étude': aoiLayer
     };
 
     L.control.layers(baseMaps, overlayMaps).addTo(map);

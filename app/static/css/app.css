@@ -8,6 +8,9 @@
     font-optical-sizing: auto;
 }
 
+a {
+    text-decoration: none;
+}
 
 .container{
     width: 100%;
@@ -22,8 +25,6 @@
 .navbar{
     width: 100%;
     height: 10%;
-    /* border: solid red 1px; */
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -32,34 +33,49 @@
     z-index: 10;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12); /* subtle bottom shadow */
 }
-.navbar-left{
-    display: flex;
-    /* border: solid red 1px; */
-    flex-direction: column;
-    
-    p{
-font-size: 20px;
-font-weight: 600;
-color: #335CFF;
-    }
 
+/* fix nested rules and ensure default black color for navbar items */
+.navbar-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-left p {
+    font-size: 20px;
+    font-weight: 600;
+    color: #335CFF;
 }
 
 .navbar-center{
     display: flex;
-    /* border-width: solid red 1px; */
-    justify-content:space-between;
-    align-items:column;
+    justify-content: space-between;
+    align-items: center;
     padding: 20px;
     gap: 30px;
     list-style: none;
-    li:first-child {
-        color:#335CFF;
-      }
+}
+
+/* default link color = black */
+.navbar-center a {
+    color: #000000;
+    text-decoration: none;
+    font-weight: 300;
+    transition: color 0.15s ease;
+}
+
+/* active/current page -> blue */
+.navbar-center a.active,
+.navbar-center li.active > a,
+.navbar-center a[aria-current="page"] {
+    color: #335CFF;
+}
+
+/* optional hover behavior */
+.navbar-center a:hover {
+    color: #335CFF;
 }
 
 .navbar-right{
-    /* border: solid red 1px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,7 +142,7 @@ color: #335CFF;
 .ds-s1-sites {
     width: 40%;
     height: 80%;
-    background-color: white;
+    background-color: white !important;
     border: solid #335CFF 1px;
     border-radius: 15px;
     /* margin-right: 10px; */
@@ -179,3 +195,15 @@ color: #335CFF;
     color: #ffffff;
     box-shadow: 0 4px 10px rgba(220, 38, 38, 0.35);
 } */
+
+
+
+
+/* DOCUMENTATION PAGE  */
+.d-doc {
+    /* border: solid red 1px; */
+    width: 100%;
+    height: 100%;
+    padding: 50px;
+}
+
