@@ -116,6 +116,12 @@ a {
     padding: 20px 10px;
 }
 
+#dash p {
+    font-size: 14px;
+    color: #475569;
+    margin-bottom: 20px;
+}
+
 .d-stats {
     /* border: solid red 1px; */
     border: solid #E2E8F0 1px;
@@ -142,8 +148,8 @@ a {
 .ds-s1-sites {
     width: 40%;
     height: 80%;
-    background-color: white !important;
-    border: solid #335CFF 1px;
+    background-color: #FFF7ED !important;
+    /* border: solid #335CFF 1px; */
     border-radius: 15px;
     /* margin-right: 10px; */
     padding: 10px;
@@ -180,9 +186,9 @@ a {
     gap: 8px;
     padding: 10px 18px;
     border-radius: 999px;
-    border: 1px solid #DC2626;
+    border: 1px solid #335CFF;
     background-color: #ffffff;
-    color: #DC2626;
+    color: #335CFF;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -207,3 +213,6 @@ a {
     padding: 50px;
 }
 
+.d-doc h2{
+    color: #335CFF;
+}

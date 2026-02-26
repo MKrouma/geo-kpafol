@@ -4,8 +4,7 @@ var map = L.map('map').setView([6.68047763, -4.1245604], 8);
 var OpenStreetMap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}) 
-// .addTo(map);
+}).addTo(map);
 
 var Esri_WorldImagery = L.tileLayer(
   'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
@@ -13,7 +12,8 @@ var Esri_WorldImagery = L.tileLayer(
     attribution:
       'Tiles &copy; Esri &mdash; Source: Esri & Co.'
   }
-).addTo(map);
+) 
+// .addTo(map);
 
 
 // AOI layer from backend
