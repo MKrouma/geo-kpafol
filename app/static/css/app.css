@@ -239,6 +239,76 @@ a {
     background-color: white;
 }
 
+.alerts-detail {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alerts-empty-state {
+    text-align: center;
+    max-width: 420px;
+    color: #0F172A;
+}
+
+.alerts-empty-illustration {
+    max-width: 260px;
+    margin-bottom: 24px;
+}
+
+.alerts-empty-state h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.alerts-empty-state p {
+    font-size: 14px;
+    color: #64748B;
+    line-height: 1.5;
+}
+
+.alerts-detail-panel {
+    max-width: 520px;
+}
+
+.alerts-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.alerts-detail-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #0F172A;
+}
+
+.alerts-detail-meta {
+    font-size: 13px;
+    color: #64748B;
+    margin-bottom: 16px;
+}
+
+.alerts-detail-description {
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.6;
+}
+
+/* badge variants reused for detail header */
+.alert-badge--high {
+    color: #DC2626;
+}
+
+.alert-badge--low {
+    color: #335CFF;
+}
+
 .alerts-list {
     max-height: calc(100% - 50px);
     overflow-y: auto;

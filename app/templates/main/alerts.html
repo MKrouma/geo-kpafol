@@ -10,7 +10,15 @@
                 {% for alert in alerts %}
                 {% set risk_raw = (alert.risk if alert.risk is defined else '') %}
                 {% set risk_lower = risk_raw|string|lower %}
-                <div class="alert-item alert-item--{{ risk_lower }}">
+                <div 
+                  class="alert-item alert-item--{{ risk_lower }}"
+                  data-id="{{ alert.id }}"
+                  data-region="{{ alert.region or '' }}"
+                  data-risk="{{ risk_raw }}"
+                  {% if alert.probabilite is defined %}
+                  data-probabilite="{{ alert.probabilite }}"
+                  {% endif %}
+                >
                     <div class="alert-item-top">
                         <span class="alert-badge">
                             {% if risk_lower == 'high' %}
@@ -43,6 +51,29 @@
         </div>
     </div>
     <div class="a-right">
+        <div class="alerts-detail">
+            <div id="empty-state" class="alerts-empty-state">
+                <img src="{{ url_for('static', filename='images/empty_alert.png') }}" alt="Aucune alerte sélectionnée" class="alerts-empty-illustration">
+                <h3>Sélectionnez une alerte pour afficher les détails</h3>
+                <p>
+                    Sélectionnez une alerte dans la liste pour afficher des informations détaillées
+                    sur l'activité minière signalée.
+                </p>
+            </div>
+
+            <div id="detail-panel" class="alerts-detail-panel" style="display:none;">
+                <div class="alerts-detail-header">
+                    <span id="detail-risk-badge" class="alert-badge">RISQUE</span>
+                    <span id="detail-prob" class="alert-time"></span>
+                </div>
+                <h3 id="detail-region" class="alerts-detail-title">Région</h3>
+                <p id="detail-id" class="alerts-detail-meta">ID :</p>
+                <p class="alerts-detail-description">
+                    Anomalie thermique détectée à proximité de cette zone. Utilisez ces informations
+                    pour prioriser les actions de suivi et de contrôle.
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -55,11 +86,43 @@ document.addEventListener('DOMContentLoaded', function(){
   list.addEventListener('click', (e) => {
     const item = e.target.closest('.alert-item');
     if (!item) return;
-    // ideally fetch detail by id; here we simply toggle example panels
-    document.getElementById('empty-state').style.display = 'none';
+
+    const id = item.dataset.id || '';
+    const region = item.dataset.region || 'Région inconnue';
+    const risk = (item.dataset.risk || '').toLowerCase();
+    const prob = item.dataset.probabilite;
+
+    // toggle panels
+    const empty = document.getElementById('empty-state');
     const panel = document.getElementById('detail-panel');
-    panel.style.display = 'block';
-    // populate fields if you have data attributes or a detail API
+    if (empty) empty.style.display = 'none';
+    if (panel) panel.style.display = 'block';
+
+    // update content
+    const regionEl = document.getElementById('detail-region');
+    const idEl = document.getElementById('detail-id');
+    const badgeEl = document.getElementById('detail-risk-badge');
+    const probEl = document.getElementById('detail-prob');
+
+    if (regionEl) regionEl.textContent = region;
+    if (idEl) idEl.textContent = `ID : AL-${id}`;
+
+    if (badgeEl) {
+      badgeEl.classList.remove('alert-badge--high', 'alert-badge--low');
+      if (risk === 'high') {
+        badgeEl.textContent = 'CRITIQUE';
+        badgeEl.classList.add('alert-badge--high');
+      } else if (risk === 'low') {
+        badgeEl.textContent = 'FAIBLE RISQUE';
+        badgeEl.classList.add('alert-badge--low');
+      } else {
+        badgeEl.textContent = 'RISQUE';
+      }
+    }
+
+    if (probEl) {
+      probEl.textContent = prob ? `${Math.round(Number(prob))} %` : '';
+    }
   });
 });
 </script>
