@@ -25,12 +25,12 @@ class RegistrationForm(FlaskForm):
     # firstname = StringField('Prénom', validators=[DataRequired(), Length(1, 64)])
     # lastname = StringField('Nom', validators=[DataRequired(), Length(1, 64)])
     email = StringField('Email', validators=[
-        DataRequired(),
+        DataRequired(message='L\'email est requis'),
         Regexp(r'^[^@]+@[^@]+\.[^@]+$', message='Adresse email invalide')
     ])
-    password = PasswordField('Mot de passe', validators=[DataRequired(), Length(min=8)])
+    password = PasswordField('Mot de passe', validators=[DataRequired(message='Le mot de passe est requis.'), Length(min=8)])
     confirm_password = PasswordField('Confirmer le mot de passe', validators=[
-        DataRequired(), EqualTo('password', message='Les mots de passe ne correspondent pas')
+        DataRequired(message='La confirmation du mot de passe est requise.'), EqualTo('password', message='Les mots de passe ne correspondent pas.')
     ])
     submit = SubmitField('S\'inscrire')
 
