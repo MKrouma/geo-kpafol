@@ -179,3 +179,12 @@ a {
     color: #4338ca;
     text-decoration: underline;
 }
+
+.flash-message {
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    background-color: rgb(246, 196, 196);
+    color: white;
+}

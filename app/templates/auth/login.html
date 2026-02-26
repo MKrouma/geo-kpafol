@@ -21,6 +21,13 @@
                     <a href="{{ url_for('auth.register') }}">S'inscrire ici</a></p>
             </div>  
             <div class="c-formulaire">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="flash-message {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
                 <form method="post" class="form" novalidate>
                     {{ form.csrf_token }}
                     <div class="form-group">
