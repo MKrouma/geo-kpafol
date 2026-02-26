@@ -11,6 +11,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
+     <script src="https://kit.fontawesome.com/ef07e6b6ce.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
     <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
 </head>
@@ -78,6 +79,15 @@
                             <p class="ds-s1-value"><span>74</span>/100</p>
                         </div>
                     </div>
+                </div>
+                <div id="logout">
+                    <form action="{{ url_for('auth.logout') }}" method="post" style="display:inline;">
+                        
+                        <button type="submit">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            <span>Se deconnecter</span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

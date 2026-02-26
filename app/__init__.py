@@ -19,7 +19,7 @@ def create_app(config_name='default'):
     
     # Configure Flask-Login
     login.init_app(app)
-    # login.login_view = 'auth.login'
+    login.login_view = 'auth.login'
     
     @login.user_loader
     def load_user(user_id):

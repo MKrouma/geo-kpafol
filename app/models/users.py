@@ -18,7 +18,7 @@ class User(UserMixin, db.Model):
     is_actived = db.Column(db.Boolean(), default=True)
     created_at = db.Column(db.DateTime(), default=datetime.now)
     updated_at = db.Column(db.DateTime(), default=datetime.now)
-    avatar_url = db.Column(db.String(100))
+    avatar_url = db.Column(db.String(100), default='')
 
 
     def __init__(self, **kwargs):

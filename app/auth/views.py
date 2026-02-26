@@ -101,3 +101,10 @@ def register():
         return redirect(url_for('auth.login'))  
 
     return render_template('auth/register.html', form=form)
+
+@auth.route('/logout', methods=['GET', 'POST'])
+@login_required
+def logout():
+    logout_user()
+    # flash('Vous avez été déconnecté.', 'info')
+    return redirect(url_for('auth.login'))
