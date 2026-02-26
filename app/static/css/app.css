@@ -239,6 +239,67 @@ a {
     background-color: white;
 }
 
+.alerts-list {
+    max-height: calc(100% - 50px);
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.alert-item {
+    padding: 10px 4px 14px;
+    border-bottom: 1px solid #E2E8F0;
+    cursor: pointer;
+}
+
+.alert-item:last-child {
+    border-bottom: none;
+}
+
+.alert-item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.alert-badge {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+/* risk color coding that matches map + branding */
+.alert-item--high .alert-badge {
+    color: #DC2626; /* critical red/orange */
+}
+
+.alert-item--low .alert-badge {
+    color: #335CFF; /* brand blue for low risk */
+}
+
+.alert-time {
+    font-size: 10px;
+    color: #94A3B8;
+}
+
+.alert-location {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0F172A;
+    margin-bottom: 2px;
+}
+
+.alert-meta {
+    font-size: 11px;
+    color: #64748B;
+}
+
+.alerts-empty {
+    font-size: 12px;
+    color: #64748B;
+}
+
 
 /* DOCUMENTATION PAGE  */
 .d-doc {

@@ -4,6 +4,43 @@
 <div class='alerts'>
     <div class="a-left">
         <h2>Alertes des détections</h2>
+
+        <div class="alerts-list" id="alerts-list">
+            {% if alerts %}
+                {% for alert in alerts %}
+                {% set risk_raw = (alert.risk if alert.risk is defined else '') %}
+                {% set risk_lower = risk_raw|string|lower %}
+                <div class="alert-item alert-item--{{ risk_lower }}">
+                    <div class="alert-item-top">
+                        <span class="alert-badge">
+                            {% if risk_lower == 'high' %}
+                                CRITIQUE
+                            {% elif risk_lower == 'low' %}
+                                FAIBLE RISQUE
+                            {% else %}
+                                RISQUE
+                            {% endif %}
+                            {% if alert.probabilite is defined %}
+                                • {{ alert.probabilite|round(0)|int }} %
+                            {% endif %}
+                        </span>
+                        <span class="alert-time">
+                            <!-- Placeholder, you can wire a real timestamp field later -->
+                            Aujourd'hui
+                        </span>
+                    </div>
+                    <p class="alert-location">
+                        {{ alert.region or 'Région inconnue' }}
+                    </p>
+                    <p class="alert-meta">
+                        ID : AL-{{ alert.id }} • Anomalie thermique
+                    </p>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="alerts-empty">Aucune alerte à afficher pour le moment.</p>
+            {% endif %}
+        </div>
     </div>
     <div class="a-right">
     </div>

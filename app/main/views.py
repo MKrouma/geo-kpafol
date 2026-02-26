@@ -30,7 +30,21 @@ def dashboard():
 @main.route('/alerts', methods=['GET', 'POST'])
 @login_required
 def alerts():
-    return render_template('main/alerts.html')
+    # simple summary list for alerts sidebar
+    data_dir = os.path.join(current_app.root_path, '../data')
+    alerts_path = os.path.join(data_dir, "alerts.gpkg")
+
+    alerts_list = []
+    if os.path.exists(alerts_path):
+        alerts_gdf = gpd.read_file(alerts_path)
+        cols = [c for c in ['id', 'region', 'probabilite', 'risk'] if c in alerts_gdf.columns]
+        if cols:
+            alerts_gdf = alerts_gdf[cols]
+            if 'probabilite' in alerts_gdf.columns:
+                alerts_gdf = alerts_gdf.sort_values('probabilite', ascending=False)
+            alerts_list = alerts_gdf.head(30).to_dict(orient='records')
+
+    return render_template('main/alerts.html', alerts=alerts_list)
 
 @main.route('/documentation', methods=['GET', 'POST'])
 @login_required
