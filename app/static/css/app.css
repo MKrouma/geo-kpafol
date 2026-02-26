@@ -116,7 +116,7 @@ a {
     padding: 20px 10px;
 }
 
-#dash p {
+#dash > p {
     font-size: 14px;
     color: #475569;
     margin-bottom: 20px;
