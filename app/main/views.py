@@ -47,6 +47,12 @@ def get_aoi():
     geojson_str = aoi.to_json()  # GeoPandas -> GeoJSON string
     return Response(geojson_str, mimetype='application/geo+json')
 
+@main.route('/api/alerts', methods=['GET', 'POST'])
+def get_alerts():
+    data_dir = os.path.join(current_app.root_path, '../data')
+    alerts = gpd.read_file(os.path.join(data_dir, "alerts.gpkg"))
+    geojson_str = alerts.to_json()  # GeoPandas -> GeoJSON string
+    return Response(geojson_str, mimetype='application/geo+json')
 
 
 # STATIC FAVICON
