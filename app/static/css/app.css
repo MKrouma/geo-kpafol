@@ -125,13 +125,13 @@ a {
 .d-stats {
     /* border: solid red 1px; */
     border: solid #E2E8F0 1px;
-    padding: 20px 5px;
+    padding: 10px 5px;
 }
 
 .d-stats h2{
     font-size: 20px;
     font-weight: 500;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -146,7 +146,7 @@ a {
 }
 
 .ds-s1-sites {
-    width: 40%;
+    width: 45%;
     height: 80%;
     background-color: #FFF7ED !important;
     /* border: solid #335CFF 1px; */
