@@ -4,7 +4,6 @@ from flask import (
     url_for, send_from_directory, current_app, request, Response
 )
 from flask_login import login_required, current_user
-from app.auth.forms import LoginForm
 import geopandas as gpd 
 
 main = Blueprint('main', __name__, 
@@ -17,10 +16,9 @@ main = Blueprint('main', __name__,
 # FRONTEND 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    form = LoginForm()
     if current_user.is_authenticated:
         return redirect(url_for('main.dashboard'))
-    return render_template('auth/login.html', form=form) 
+    return redirect(url_for('auth.login'))
 
 @main.route('/dashboard', methods=['GET', 'POST'])
 @login_required
